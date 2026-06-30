@@ -2,42 +2,18 @@ import sys
 from ft_filter import ft_filter
 
 
-def is_integer(value):
-    """Return True if value can be converted to an integer."""
-    try:
-        int(value)
-        return True
-    except ValueError:
-        return False
-
-
 def main():
-    """Filter words from a string that are longer than a given number."""
     try:
-        if len(sys.argv) != 3:
-            raise AssertionError("the arguments are bad")
+        assert len(sys.argv) == 3, "the arguments are bad"
+        assert sys.argv[2].isdigit(), "the arguments are bad"
 
-        string = sys.argv[1]
-        number = sys.argv[2]
+        words = sys.argv[1].split()
+        min_length = int(sys.argv[2])
+        fil_wrd = list(ft_filter(lambda word: len(word) > min_length, words))
+        print(fil_wrd)
 
-        if not isinstance(string, str) or not is_integer(number):
-            raise AssertionError("the arguments are bad")
-
-        n = int(number)
-
-        words = string.split("")
-
-        result = [
-            word for word in ft_filter(lambda word: len(word) > n, words)
-        ]
-
-        print(result)
-
-    except AssertionError as error:
-        print(f"AssertionError: {error}")
-    except Exception:
-        print("AssertionError: the arguments are bad")
-
+    except AssertionError as e:
+        print(f"AssertionError: {e}")
 
 if __name__ == "__main__":
     main()
